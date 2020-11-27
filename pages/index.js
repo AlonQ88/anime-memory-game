@@ -115,7 +115,7 @@ export default function App() {
           }
 
           .back {
-            background-image: url(https://images.unsplash.com/photo-1571757767119-68b8dbed8c97?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80);
+            background-image: url(http://www.1999.co.jp/itbig08/10081992a2.jpg);
           }
 
           .front {
@@ -132,19 +132,18 @@ function MemoryGame({ options, setOptions, highScore, setHighScore }) {
   const [flippedCount, setFlippedCount] = useState(0);
   const [flippedIndexes, setFlippedIndexes] = useState([]);
 
-  const colors = [
-    "#ecdb54",
-    "#e34132",
-    "#6ca0dc",
-    "#944743",
-    "#dbb2d1",
-    "#ec9787",
-    "#00a68c",
-    "#645394",
-    "#6c4f3d",
-    "#ebe1df",
-    "#bc6ca7",
-    "#bfd833",
+  const pirateCrewImgsUrls = [
+    "https://cdn.costumewall.com/wp-content/uploads/2019/08/luffy.jpg",
+    "https://www.anime-planet.com/images/characters/zoro-roronoa-75.jpg",
+    "https://images2-mega.mdstrm.com/etcetera/2019/03/04/7753_1_5c7d671b0dd18.jpg",
+    "https://i0.wp.com/31.media.tumblr.com/6f5075df613b550ec6815fb0973aa2d2/tumblr_n324b8RDiB1rnt61eo2_r1_500.png",
+    "https://w7.pngwing.com/pngs/540/459/png-transparent-vinsmoke-sanji-monkey-d-luffy-roronoa-zoro-one-piece-world-seeker-kakashi-hatake-monkey-d-luffy-child-food-hand.png",
+    "https://i.pinimg.com/originals/cd/43/e1/cd43e1a396f704f7ac0c800b8e0cfd2b.png",
+    "https://images6.fanpop.com/image/polls/1549000/1549219_1458767892830_full.jpg",
+    "https://images.rapgenius.com/9bba930a0ae885a76c18d8287452e3af.1000x563x1.png",
+    "https://i.stack.imgur.com/ouNRB.jpg",
+    "https://static3.cbrimages.com/wordpress/wp-content/uploads/2019/05/Gol-D-Roger-One-Piece.jpg",
+    "https://data.whicdn.com/images/345600441/original.jpg",
   ];
 
   useEffect(() => {
@@ -152,17 +151,16 @@ function MemoryGame({ options, setOptions, highScore, setHighScore }) {
     for (let i = 0; i < options / 2; i++) {
       const firstOption = {
         id: 2 * i,
-        colorId: i,
-        color: colors[i],
+        imgId: i,
+        imageUrl: pirateCrewImgsUrls[i],
         flipped: false,
       };
       const secondOption = {
         id: 2 * i + 1,
-        colorId: i,
-        color: colors[i],
+        imgId: i,
+        imageUrl: pirateCrewImgsUrls[i],
         flipped: false,
       };
-
       newGame.push(firstOption);
       newGame.push(secondOption);
     }
@@ -217,7 +215,7 @@ function MemoryGame({ options, setOptions, highScore, setHighScore }) {
 
   if (flippedIndexes.length === 2) {
     const match =
-      game[flippedIndexes[0]].colorId === game[flippedIndexes[1]].colorId;
+      game[flippedIndexes[0]].imgId === game[flippedIndexes[1]].imgId;
 
     if (match) {
       const newGame = [...game];
@@ -243,7 +241,7 @@ function MemoryGame({ options, setOptions, highScore, setHighScore }) {
           <div className="card" key={index}>
             <Card
               id={index}
-              color={card.color}
+              imageUrl={card.imageUrl}
               game={game}
               flippedCount={flippedCount}
               setFlippedCount={setFlippedCount}
@@ -259,7 +257,7 @@ function MemoryGame({ options, setOptions, highScore, setHighScore }) {
 
 function Card({
   id,
-  color,
+  imageUrl,
   game,
   flippedCount,
   setFlippedCount,
@@ -320,7 +318,7 @@ function Card({
         style={{
           opacity,
           transform: transform.interpolate((t) => `${t} rotateX(180deg)`),
-          background: color,
+          backgroundImage: `url(${imageUrl})`,
         }}
       />
     </div>
